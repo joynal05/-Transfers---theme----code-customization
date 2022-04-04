@@ -54,7 +54,7 @@
 						d1.setHours ( d1.getHours() + 24 );
 					}; break;
 					case "2days": {
-						d1.setHours ( d1.getHours() + 36 );
+						d1.setHours ( d1.getHours() + 63 );
 					}; break;
 					case "1week": {
 						d1.setDate ( d1.getDate() + 7 );

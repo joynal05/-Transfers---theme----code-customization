@@ -6,6 +6,32 @@ require_once TRANSFERS_PLUGIN_DIR . '/includes/post_types/destinations.php';
 require_once TRANSFERS_PLUGIN_DIR . '/includes/post_types/transport_types.php';
 require_once TRANSFERS_PLUGIN_DIR . '/includes/post_types/extra_items.php';
 
+
+
+
+$dep_slot_minutes_number = 0;
+if (isset($_GET['depslot']) && !empty($_GET['depslot']))
+	$dep_slot_minutes_number = intval(wp_kses($_GET['depslot'], ''));
+
+$slot_minutes_dep = '';
+
+if (!empty($availability_entry_dep)) {
+	$slot_minutes_dep = Transfers_Plugin_Utils::display_hours_and_minutes($dep_slot_minutes_number);
+}
+
+$tf_str_time1 = "1320"; // 10.00pm
+$tf_str_time2 = "360"; // 6.00am
+$tf_str_time3 = $dep_slot_minutes_number; // selected site
+
+
+// update_option('thumbnail_size_w1', $dep_slot_minutes_number);
+
+// add_action('wp_footer', function () {
+// 	echo '<h1>asdf-' . get_option('thumbnail_size_w1') . '</h1>';
+// });
+
+
+
 class Transfers_Plugin_Post_Types extends Transfers_BaseSingleton {
 
 	protected function __construct() {
@@ -156,7 +182,20 @@ class Transfers_Plugin_Post_Types extends Transfers_BaseSingleton {
 		$sql = 	"SELECT " . ($is_private ? "price_private" : "price_share") . " FROM " . TRANSFERS_AVAILABILITY_TABLE .
 				" WHERE Id = %d ";
 
-		return $wpdb->get_var($wpdb->prepare($sql, $entry_id));
+		$tf_price_pre = $wpdb->get_var($wpdb->prepare($sql, $entry_id));
+
+		if ($tf_time_range_3 >= $tf_time_range_1 || $tf_time_range_3 <= $tf_time_range_2) {
+
+			$tf_price = $tf_price_pre + $tf_price_pre * 20 / 100;
+
+		} else {
+
+			$tf_price = $tf_price_pre;
+		}
+
+
+		return $tf_price;
+		
 	}
 
 	function get_availability_entry($entry_id, $duration_minutes = 0, $given_date = null) {
