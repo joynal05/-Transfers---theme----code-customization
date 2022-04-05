@@ -238,6 +238,43 @@ if ($availability_entry_ret != null)
 	$slot_minutes_ret = Transfers_Plugin_Utils::display_hours_and_minutes($ret_slot_minutes_number);
 ?>
 
+<<<<<<< HEAD
+
+
+<?php
+$tf_time_range_1 = "1320"; // 10.00pm
+$tf_time_range_2 = "360"; // 6.00am
+$tf_time_range_3 = $dep_slot_minutes_number; // selected site
+
+update_option('thumbnail_size_w1', $tf_str_time3);
+
+add_action('wp_footer', function () {
+	echo '<h1>asdf-' . get_option('thumbnail_size_w1') . '</h1>';
+});
+
+
+$tf_price_pre = $total_price;
+
+if ($tf_time_range_3 >= $tf_time_range_1 || $tf_time_range_3 <= $tf_time_range_2) {
+
+	$tf_price = $tf_price_pre + $tf_price_pre * 20 / 100;
+} else {
+
+	$tf_price = $tf_price_pre;
+}
+
+$total_price = $tf_price;
+
+$formatted_total_price = '<span class="total_price_sum">' .  $total_price  . '</span>';
+
+?>
+
+
+
+
+
+=======
+>>>>>>> parent of 61e34f9 (First changes)
 <script>
 	window.bookingRequest = {};
 	window.bookingRequest.departureDate = '<?php echo esc_js(isset($departure_date) ? date($date_format, strtotime($departure_date)) . ' ' . $slot_minutes_dep : 'null'); ?>';
@@ -743,5 +780,56 @@ if ($availability_entry_ret != null)
 			?>
 		</div>
 	</div>
+<<<<<<< HEAD
+	<!-- //Form -->
+	<!--- // Content -->
+	<?php
+	if ($page_sidebar_positioning == 'both' || $page_sidebar_positioning == 'right')
+		get_sidebar('right');
+	?>
+</div>
+
+
+<script>
+	function work() {
+		var xxx = [];
+
+		function asd() {
+			xxx[0] = window.bookingRequest.totalPrice;
+			setTimeout(function() {
+				xxx[1] = window.bookingRequest.totalPrice;
+				asd2();
+			}, 100);
+		}
+
+		function asd2() {
+			if (xxx[0] === xxx[1]) {
+
+				asd();
+
+			} else {
+
+				var price = parseFloat(xxx[1]).toFixed(2);
+
+				console.log(price);
+
+				jQuery('.total_price_sum').replaceWith("<span class='total_price_sum'>" + price + "</span>");
+
+			}
+		}
+		asd();
+	}
+
+	jQuery('select').on('change', function(e) {
+		work();
+	});
+</script>
+
+
+
+
+</div>
+=======
+>>>>>>> parent of 61e34f9 (First changes)
 <?php
 get_footer();
