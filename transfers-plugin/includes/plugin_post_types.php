@@ -6,6 +6,7 @@ require_once TRANSFERS_PLUGIN_DIR . '/includes/post_types/destinations.php';
 require_once TRANSFERS_PLUGIN_DIR . '/includes/post_types/transport_types.php';
 require_once TRANSFERS_PLUGIN_DIR . '/includes/post_types/extra_items.php';
 
+<<<<<<< HEAD
 
 
 
@@ -23,6 +24,8 @@ if (!empty($availability_entry_dep)) {
 
 
 
+=======
+>>>>>>> parent of 61e34f9 (First changes)
 class Transfers_Plugin_Post_Types extends Transfers_BaseSingleton {
 
 	protected function __construct() {
@@ -173,6 +176,7 @@ class Transfers_Plugin_Post_Types extends Transfers_BaseSingleton {
 		$sql = 	"SELECT " . ($is_private ? "price_private" : "price_share") . " FROM " . TRANSFERS_AVAILABILITY_TABLE .
 				" WHERE Id = %d ";
 
+<<<<<<< HEAD
 		$tf_price_pre = $wpdb->get_var($wpdb->prepare($sql, $entry_id));
 
 
@@ -202,6 +206,9 @@ class Transfers_Plugin_Post_Types extends Transfers_BaseSingleton {
 
 
 		
+=======
+		return $wpdb->get_var($wpdb->prepare($sql, $entry_id));
+>>>>>>> parent of 61e34f9 (First changes)
 	}
 
 	function get_availability_entry($entry_id, $duration_minutes = 0, $given_date = null) {
