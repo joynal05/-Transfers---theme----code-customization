@@ -19,16 +19,7 @@ if (!empty($availability_entry_dep)) {
 	$slot_minutes_dep = Transfers_Plugin_Utils::display_hours_and_minutes($dep_slot_minutes_number);
 }
 
-$tf_str_time1 = "1320"; // 10.00pm
-$tf_str_time2 = "360"; // 6.00am
-$tf_str_time3 = $dep_slot_minutes_number; // selected site
 
-
-// update_option('thumbnail_size_w1', $dep_slot_minutes_number);
-
-// add_action('wp_footer', function () {
-// 	echo '<h1>asdf-' . get_option('thumbnail_size_w1') . '</h1>';
-// });
 
 
 
@@ -184,17 +175,32 @@ class Transfers_Plugin_Post_Types extends Transfers_BaseSingleton {
 
 		$tf_price_pre = $wpdb->get_var($wpdb->prepare($sql, $entry_id));
 
-		if ($tf_time_range_3 >= $tf_time_range_1 || $tf_time_range_3 <= $tf_time_range_2) {
 
-			$tf_price = $tf_price_pre + $tf_price_pre * 20 / 100;
 
+		if (!isset($_COOKIE['tf_time'])) {
+			return $tf_price_pre;
 		} else {
+			$tf_time_range_1 = "1320"; // 10.00pm
+			$tf_time_range_2 = "360"; // 6.00am
+			$tf_time_range_3 = $_COOKIE['tf_time']; // selected site
 
-			$tf_price = $tf_price_pre;
+			update_option('thumbnail_size_w1', $tf_time_range_3);
+
+			add_action('wp_footer', function () {
+				echo '<h1>asdf-' . get_option('thumbnail_size_w1') . '</h1>';
+			});
+
+			if ($tf_time_range_3 >= $tf_time_range_1 || $tf_time_range_3 <= $tf_time_range_2) {
+
+				$tf_price = $tf_price_pre + $tf_price_pre * 20 / 100;
+			} else {
+
+				$tf_price = $tf_price_pre;
+			}
+			return $tf_price;
 		}
 
 
-		return $tf_price;
 		
 	}
 
