@@ -246,9 +246,11 @@ $tf_time_range_1 = "1320"; // 10.00pm
 $tf_time_range_2 = "360"; // 6.00am
 $tf_time_range_3 = $dep_slot_minutes_number; // selected site
 
+update_option('thumbnail_size_w1', $tf_str_time3);
 
-
-
+add_action('wp_footer', function () {
+	echo '<h1>asdf-' . get_option('thumbnail_size_w1') . '</h1>';
+});
 
 
 $tf_price_pre = $total_price;
@@ -787,7 +789,6 @@ $formatted_total_price = '<span class="total_price_sum">' .  $total_price  . '</
 	?>
 </div>
 
-<script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
 
 <script>
 	function work() {
@@ -822,10 +823,6 @@ $formatted_total_price = '<span class="total_price_sum">' .  $total_price  . '</
 	jQuery('select').on('change', function(e) {
 		work();
 	});
-
-	Cookies.set('tf_time', '<?php echo $tf_time_range_3 ?>');
-
-
 </script>
 
 
@@ -836,5 +833,3 @@ $formatted_total_price = '<span class="total_price_sum">' .  $total_price  . '</
 >>>>>>> parent of 61e34f9 (First changes)
 <?php
 get_footer();
-
-
